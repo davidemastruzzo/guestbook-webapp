@@ -1,0 +1,12 @@
+label {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: default;
+  color: #b0b0b3;
+}

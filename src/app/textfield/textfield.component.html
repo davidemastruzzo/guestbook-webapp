@@ -1,0 +1,11 @@
+<div class="container">
+  <input [type]="type"
+         [id]="id"
+         [(ngModel)]="value"
+         (change)="changeValue()"
+         [ngClass]="{'has-value': value != '', 'center-text': centerText}"
+         [disabled]="disabled"
+  />
+  <label [for]="id">{{label}}</label>
+  <div class="under-line"><div class="inner-line"></div></div>
+</div>

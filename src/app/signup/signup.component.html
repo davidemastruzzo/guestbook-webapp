@@ -1,0 +1,32 @@
+<div class="form-container">
+  <div class="form">
+    <div class="title">
+      <span>Register:</span>
+    </div>
+    <div class="flex-item">
+      <app-textfield
+        [id]="'username'"
+        [(value)]="userService.registerUsername"
+        label="Username">
+      </app-textfield>
+    </div>
+    <div class="flex-item">
+      <app-textfield
+        [id]="'password'"
+        [(value)]="userService.registerPassword"
+        type="password"
+        label="Password">
+      </app-textfield>
+    </div>
+    <div class="flex-item">
+      <app-checkbox [(checked)]="userService.acceptedTerms" id="agree-checkbox">
+        <span>I agree to the Terms of service</span>
+      </app-checkbox>
+    </div>
+    <div class="flex-item">
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right" (click)="registerUser()">send</i>
+      </button>
+    </div>
+  </div>
+</div>

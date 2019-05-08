@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import '~material-icons/iconfont/material-icons.css';
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+input, textarea, button {
+  outline: none;
+}
+
+button {
+  border: none;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+fieldset {
+  border: none;
+  outline: none;
+}
+
+

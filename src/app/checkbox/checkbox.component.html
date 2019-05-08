@@ -1,0 +1,5 @@
+<label [ngClass]="{'disabled' : _disabled }" [for]="id" (click)="!_disabled ? toggleChecked() : false">
+  <input [disabled]="_disabled" type="checkbox" [id]="id" hidden="hidden" [checked]="_checked"/>
+  <ng-content></ng-content>
+  <app-icon-button [disabled] = "_disabled" color="{{_disabled ? '#b0b0b3' : '#57575a'}}">{{_checked ? 'check_box' : 'check_box_outline_blank'}}</app-icon-button>
+</label>
