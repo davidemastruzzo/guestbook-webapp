@@ -6,26 +6,47 @@
     <div class="flex-item">
       <app-textfield
         [id]="'username'"
-        [(value)]="userService.registerUsername"
+        [(invalid)]="usernameInvalid"
+        [errorMessage]="usernameInvalidMessage"
+        [(value)]="userService.registerRequest.username"
+        (valueChange)="usernameIsValid($event)"
         label="Username">
       </app-textfield>
     </div>
     <div class="flex-item">
       <app-textfield
         [id]="'password'"
-        [(value)]="userService.registerPassword"
+        [(invalid)]="passwordInvalid"
+        [errorMessage]="passwordInvalidMessage"
+        [(value)]="userService.registerRequest.password"
+        (valueChange)="passwordIsValid($event)"
         type="password"
         label="Password">
       </app-textfield>
     </div>
     <div class="flex-item">
-      <app-checkbox [(checked)]="userService.acceptedTerms" id="agree-checkbox">
+      <app-textfield
+        [id]="'retype-password'"
+        [(value)]="userService.registerRequest.retypePassword"
+        [(invalid)]="retypePasswordInvalid"
+        [errorMessage]="retypePasswordInvalidMessage"
+        (valueChange)="retypePasswordIsValid($event)"
+        type="password"
+        label="Retype Password">
+      </app-textfield>
+    </div>
+    <div class="flex-item">
+      <app-checkbox
+        [(checked)]="userService.registerRequest.acceptedTerms"
+        (checkedChange)="termsIsValid($event)"
+        [(invalid)]="termsInvalid"
+        id="agree-checkbox">
         <span>I agree to the Terms of service</span>
       </app-checkbox>
     </div>
     <div class="flex-item">
-      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-        <i class="material-icons right" (click)="registerUser()">send</i>
+    <button class="btn waves-effect waves-light" type="submit" name="action" (click)="registerUser()">Register
+        <i class="material-icons right">send</i>
       </button>
     </div>
   </div>

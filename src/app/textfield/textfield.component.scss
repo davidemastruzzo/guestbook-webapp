@@ -36,7 +36,20 @@
     &.center-text {
       text-align: center;
     }
+  }
 
+  .invalid-input{
+    border-bottom: solid 1px red !important;
+    color: red;
+  }
+
+  .invalid-label{
+    color: red;
+
+    span:last-child{
+      margin-left: 5px;
+      font-size: 12px;
+    }
   }
 
   .under-line {
@@ -60,7 +73,7 @@
   label {
     position: absolute;
     left: 0;
-    top: 15px;
+    top: 0;
     font-size: 1rem;
     color: $gray;
     cursor: text;
@@ -68,9 +81,8 @@
   }
 }
 
-input:focus ~ label,
+input, label,
 .has-value ~ label {
-  font-size: 0.85rem;
   top: 0;
   left: 0;
   color: $gray-dark;

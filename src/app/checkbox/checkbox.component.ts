@@ -8,7 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class CheckboxComponent implements OnInit {
 
   @Input() id: string;
-  @Input() private disabled = false;
+  @Input() private invalid = false;
   @Input() private checked = false;
   @Output() checkedChange = new EventEmitter();
 
@@ -16,15 +16,12 @@ export class CheckboxComponent implements OnInit {
     return this.checked;
   }
 
-  set _checked(value: boolean) {
-    this.checked = value;
+  get _invalid(): boolean {
+    return this.invalid;
   }
 
-  get _disabled(): boolean {
-    return this.disabled;
+  constructor() {
   }
-
-  constructor() { }
 
   ngOnInit() {
   }

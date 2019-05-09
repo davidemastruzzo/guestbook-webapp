@@ -2,10 +2,10 @@
   <input [type]="type"
          [id]="id"
          [(ngModel)]="value"
-         (change)="changeValue()"
-         [ngClass]="{'has-value': value != '', 'center-text': centerText}"
+         (input)="changeValue()"
+         [ngClass]="{'has-value': value != '', 'center-text': centerText, 'invalid-input': invalid}"
          [disabled]="disabled"
   />
-  <label [for]="id">{{label}}</label>
+  <label [for]="id" [ngClass]="{'invalid-label': invalid}"><span>{{label }}</span><ng-container *ngIf="invalid"> <span>{{errorMessage}}</span></ng-container></label>
   <div class="under-line"><div class="inner-line"></div></div>
 </div>

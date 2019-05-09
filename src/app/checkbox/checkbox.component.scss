@@ -6,7 +6,7 @@ label {
   cursor: pointer;
 }
 
-.disabled {
+.invalid {
   cursor: default;
-  color: #b0b0b3;
+  color: red;
 }

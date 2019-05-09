@@ -8,10 +8,10 @@ import {Component, Input, OnInit} from '@angular/core';
 export class IconButtonComponent implements OnInit {
 
   @Input() color;
-  @Input() private disabled = false;
+  @Input() private invalid = false;
 
-  get _disabled(): boolean {
-    return this.disabled;
+  get _invalid(): boolean {
+    return this.invalid;
   }
 
   constructor() { }

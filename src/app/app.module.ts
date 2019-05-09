@@ -11,6 +11,9 @@ import {CheckboxComponent} from './checkbox/checkbox.component';
 import {IconComponent} from './icon/icon.component';
 import {IconButtonComponent} from './icon-button/icon-button.component';
 import { SignupComponent } from './signup/signup.component';
+import {HttpClientModule} from '@angular/common/http';
+import {UserApiService} from './services/user-api.service';
+import {UserService} from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -26,9 +29,13 @@ import { SignupComponent } from './signup/signup.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    UserApiService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
