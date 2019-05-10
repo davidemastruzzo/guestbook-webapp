@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {User} from '../models/User';
-import {RegisterRequest} from '../models/RegisterRequest';
+import {RegistrationRequest} from '../models/RegistrationRequest';
+import {LoginRequest} from '../models/LoginRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +9,21 @@ import {RegisterRequest} from '../models/RegisterRequest';
 export class UserService {
 
   public user: User;
-  public registerRequest: RegisterRequest;
+  public registrationRequest: RegistrationRequest;
+  public loginRequest: LoginRequest;
 
   constructor() {
-    this.registerRequest = {
+    this.registrationRequest = {
       username: '',
       password: '',
       retypePassword: '',
-      acceptedTerms: false
+      acceptedTerms: false,
+      recaptchaResponse: ''
+    };
+
+    this.loginRequest = {
+      username: '',
+      password: '',
     };
 
     this.user = {
@@ -25,9 +33,10 @@ export class UserService {
   }
 
   clearForm(): void {
-    this.registerRequest.username = '';
-    this.registerRequest.password = '';
-    this.registerRequest.retypePassword = '';
-    this.registerRequest.acceptedTerms = false;
+    this.registrationRequest.username = '';
+    this.registrationRequest.password = '';
+    this.registrationRequest.retypePassword = '';
+    this.registrationRequest.acceptedTerms = false;
+    this.registrationRequest.recaptchaResponse = '';
   }
 }

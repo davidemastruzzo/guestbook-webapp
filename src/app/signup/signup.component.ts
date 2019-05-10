@@ -2,22 +2,26 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {UserApiService} from '../services/user-api.service';
 
+declare var grecaptcha: any;
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  private passwordInvalid = false;
-  private passwordInvalidMessage = '';
+  passwordInvalid = false;
+  passwordInvalidMessage = '';
 
-  private retypePasswordInvalid = false;
-  private retypePasswordInvalidMessage = '';
+  retypePasswordInvalid = false;
+  retypePasswordInvalidMessage = '';
 
-  private usernameInvalid = false;
-  private usernameInvalidMessage = '';
+  usernameInvalid = false;
+  usernameInvalidMessage = '';
 
-  private termsInvalid = false;
+  termsInvalid = false;
+
+  captchaError = false;
 
   private succesfull = false;
 
@@ -25,10 +29,15 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
+    window['getResponseCaptcha'] = this.validCaptcha.bind(this);
+  }
+
+  validCaptcha(): void {
+    this.captchaError = false;
   }
 
   passwordIsValid(password: string): boolean {
-    const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+\|§°¦}{'_=!\-*()@%&]).{8,100}$");
+    const regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+\|§°¦}{\'_=!\-*()@%&]).{8,100}$');
     if (password.length === 0) {
       this.passwordInvalidMessage = '*';
       this.passwordInvalid = true;
@@ -38,7 +47,7 @@ export class SignupComponent implements OnInit {
       this.passwordInvalidMessage = '(At least 8 characters. lower-, upper case, special characters)';
       this.passwordInvalid = true;
     }
-    this.retypePasswordIsValid(this.userService.registerRequest.retypePassword);
+    this.retypePasswordIsValid(this.userService.registrationRequest.retypePassword);
     return !this.passwordInvalid;
   }
 
@@ -48,21 +57,25 @@ export class SignupComponent implements OnInit {
       this.retypePasswordInvalid = true;
     } else {
       this.retypePasswordInvalidMessage = 'Passwords do not match';
-      retypePassword === this.userService.registerRequest.password ? this.retypePasswordInvalid = false : this.retypePasswordInvalid = true;
+      retypePassword === this.userService.registrationRequest.password ? this.retypePasswordInvalid = false : this.retypePasswordInvalid = true;
     }
     return !this.retypePasswordInvalid;
   }
 
   usernameIsValid(username: string): boolean {
-    console.log('username test');
     if (username.length === 0) {
       this.usernameInvalid = true;
       this.usernameInvalidMessage = '*';
     } else {
-      this.usernameInvalidMessage = '(Dieser Nutzername ist bereits vergeben)';
-      this.userApiService.checkUsername(username).subscribe(valid => {
-        this.usernameInvalid = !valid;
-      });
+      if (username.indexOf(' ') >= 0) {
+        this.usernameInvalidMessage = '(No Whitespace allowed )';
+        this.usernameInvalid = true;
+      } else {
+        this.userApiService.checkUsername(username).subscribe(valid => {
+          this.usernameInvalidMessage = '(Dieser Nutzername ist bereits vergeben)';
+          this.usernameInvalid = !valid;
+        });
+      }
     }
     return !this.usernameInvalid;
   }
@@ -72,26 +85,38 @@ export class SignupComponent implements OnInit {
     return !this.termsInvalid;
   }
 
+
   registerUser(): void {
     this.succesfull = true;
-    if (!this.usernameIsValid(this.userService.registerRequest.username)) {
+
+    if (!this.usernameIsValid(this.userService.registrationRequest.username)) {
       this.succesfull = false;
     }
-    if (!this.passwordIsValid(this.userService.registerRequest.password)) {
+    if (!this.passwordIsValid(this.userService.registrationRequest.password)) {
       this.succesfull = false;
     }
-    if (!this.retypePasswordIsValid(this.userService.registerRequest.retypePassword)) {
+    if (!this.retypePasswordIsValid(this.userService.registrationRequest.retypePassword)) {
       this.succesfull = false;
     }
-    if (!this.termsIsValid(this.userService.registerRequest.acceptedTerms)) {
+    if (!this.termsIsValid(this.userService.registrationRequest.acceptedTerms)) {
       this.succesfull = false;
     }
 
+    const response = grecaptcha.getResponse();
+    if (response.length === 0) {
+      this.captchaError = true;
+      this.succesfull = false;
+    }
+
+    this.userService.registrationRequest.recaptchaResponse = response;
+
     if (this.succesfull) {
-      this.userApiService.register(this.userService.registerRequest).subscribe(user => {
-        this.userService.user = user;
-        this.userService.clearForm();
+      this.userApiService.register(this.userService.registrationRequest).subscribe(user => {
+        if (user.status === 200) {
+          this.userService.clearForm();
+        }
       });
     }
+    grecaptcha.reset();
   }
 }

@@ -1,14 +1,14 @@
 <div class="form-container">
   <div class="form">
     <div class="title">
-      <span>Register:</span>
+      <span>Create Account</span>
     </div>
     <div class="flex-item">
       <app-textfield
         [id]="'username'"
         [(invalid)]="usernameInvalid"
         [errorMessage]="usernameInvalidMessage"
-        [(value)]="userService.registerRequest.username"
+        [(value)]="userService.registrationRequest.username"
         (valueChange)="usernameIsValid($event)"
         label="Username">
       </app-textfield>
@@ -18,7 +18,7 @@
         [id]="'password'"
         [(invalid)]="passwordInvalid"
         [errorMessage]="passwordInvalidMessage"
-        [(value)]="userService.registerRequest.password"
+        [(value)]="userService.registrationRequest.password"
         (valueChange)="passwordIsValid($event)"
         type="password"
         label="Password">
@@ -27,7 +27,7 @@
     <div class="flex-item">
       <app-textfield
         [id]="'retype-password'"
-        [(value)]="userService.registerRequest.retypePassword"
+        [(value)]="userService.registrationRequest.retypePassword"
         [(invalid)]="retypePasswordInvalid"
         [errorMessage]="retypePasswordInvalidMessage"
         (valueChange)="retypePasswordIsValid($event)"
@@ -37,7 +37,7 @@
     </div>
     <div class="flex-item">
       <app-checkbox
-        [(checked)]="userService.registerRequest.acceptedTerms"
+        [(checked)]="userService.registrationRequest.acceptedTerms"
         (checkedChange)="termsIsValid($event)"
         [(invalid)]="termsInvalid"
         id="agree-checkbox">
@@ -45,7 +45,18 @@
       </app-checkbox>
     </div>
     <div class="flex-item">
-    <button class="btn waves-effect waves-light" type="submit" name="action" (click)="registerUser()">Register
+      <div class="captcha">
+        <div data-callback="getResponseCaptcha" class="g-recaptcha"
+             data-sitekey="6Lc37woUAAAAAAcjF6AVeNf5s4RFVOwKlQQ-0Cqt"></div>
+        <div *ngIf="captchaError" class="error">
+          <p>
+            Please prove that you are nor a robot :)
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="flex-item">
+      <button class="btn waves-effect waves-light" type="submit" name="action" (click)="registerUser()">Register
         <i class="material-icons right">send</i>
       </button>
     </div>

@@ -14,6 +14,7 @@ import { SignupComponent } from './signup/signup.component';
 import {HttpClientModule} from '@angular/common/http';
 import {UserApiService} from './services/user-api.service';
 import {UserService} from './services/user.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {UserService} from './services/user.service';
     CheckboxComponent,
     IconComponent,
     IconButtonComponent,
-    SignupComponent
+    SignupComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
