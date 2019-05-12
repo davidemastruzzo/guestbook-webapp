@@ -1,0 +1,31 @@
+<div class="form-container">
+  <div class="form">
+    <div class="title">
+      <span>Login</span>
+    </div>
+    <div class="flex-item">
+      <app-textfield
+        [id]="'username'"
+        [(invalid)]="usernameInvalid"
+        [errorMessage]="usernameInvalidMessage"
+        [(value)]="userService.loginRequest.username"
+        label="Username">
+      </app-textfield>
+    </div>
+    <div class="flex-item">
+      <app-textfield
+        [id]="'password'"
+        [(invalid)]="passwordInvalid"
+        [errorMessage]="passwordInvalidMessage"
+        [(value)]="userService.loginRequest.password"
+        type="password"
+        label="Password">
+      </app-textfield>
+    </div>
+    <div class="flex-item">
+      <button class="btn waves-effect waves-light" type="submit" name="action" (click)="loginUser()">Login
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+</div>

@@ -29,10 +29,9 @@ export class UserApiService {
     return this.http.post<boolean>(environment.restURL + '/user/account/username', userName, {headers: this.defaultHeader});
   }
 
-  public login(loginRequest: LoginRequest): Observable<object> {
+  public login(loginRequest: LoginRequest) {
     return this.http.post('http://localhost:8080/login', loginRequest, {
       observe: 'response',
-      headers: this.defaultHeader
     })
   }
 }
