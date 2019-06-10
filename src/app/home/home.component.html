@@ -1,0 +1,32 @@
+<ng-container *ngIf="userService.loggedIn">
+<div class="form-container">
+  <div class="form">
+    <div class="title">
+      <span>Create Entry</span>
+    </div>
+    <div class="flex-item">
+      <app-textfield
+        [id]="'message'"
+        [(value)]="bookService.message"
+        label="Message">
+      </app-textfield>
+    </div>
+    <div class="flex-item">
+      <div class="captcha">
+        <div data-callback="getResponseCaptcha" class="g-recaptcha"
+             data-sitekey="6Lc37woUAAAAAAcjF6AVeNf5s4RFVOwKlQQ-0Cqt"></div>
+        <div *ngIf="captchaError" class="error">
+          <p>
+            Please prove that you are nor a robot :)
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="flex-item">
+      <button class="btn waves-effect waves-light" type="submit" name="action" (click)="$event">Send
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+</div>
+</ng-container>

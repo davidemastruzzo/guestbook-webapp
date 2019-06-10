@@ -1,31 +1,80 @@
-<div class="form-container">
-  <div class="form">
-    <div class="title">
-      <span>Login</span>
-    </div>
-    <div class="flex-item">
-      <app-textfield
-        [id]="'username'"
-        [(invalid)]="usernameInvalid"
-        [errorMessage]="usernameInvalidMessage"
-        [(value)]="userService.loginRequest.username"
-        label="Username">
-      </app-textfield>
-    </div>
-    <div class="flex-item">
-      <app-textfield
-        [id]="'password'"
-        [(invalid)]="passwordInvalid"
-        [errorMessage]="passwordInvalidMessage"
-        [(value)]="userService.loginRequest.password"
-        type="password"
-        label="Password">
-      </app-textfield>
-    </div>
-    <div class="flex-item">
-      <button class="btn waves-effect waves-light" type="submit" name="action" (click)="loginUser()">Login
-        <i class="material-icons right">send</i>
-      </button>
+<ng-container *ngIf="!userService.loggedIn">
+  <div class="form-container">
+    <div class="form">
+      <div class="title">
+        <span>Login</span>
+      </div>
+      <div class="flex-item">
+        <app-textfield
+          [id]="'username'"
+          [(invalid)]="usernameInvalid"
+          [errorMessage]="usernameInvalidMessage"
+          [(value)]="userService.loginRequest.username"
+          label="Username">
+        </app-textfield>
+      </div>
+      <div class="flex-item">
+        <app-textfield
+          [id]="'password'"
+          [(invalid)]="passwordInvalid"
+          [errorMessage]="passwordInvalidMessage"
+          [(value)]="userService.loginRequest.password"
+          type="password"
+          label="Password">
+        </app-textfield>
+      </div>
+      <div class="flex-item">
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      </div>
+      <ng-container *ngIf="invalidLogin">
+        <div class="flex-item">
+          <div class="invalidLoginMessageContainer btn waves-effect waves-light">
+            <p>Invalid Login</p>
+          </div>
+        </div>
+      </ng-container>
+      <div class="flex-item">
+        <button class="btn waves-effect waves-light" type="submit" name="action" (click)="loginUser()">Login
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
+<ng-container *ngIf="userService.loggedIn">
+  <div class="loggedInUser">
+    test
+  </div>
+  <div class="form-container">
+    <div class="form">
+      <div class="title">
+        <span>Create Entry</span>
+      </div>
+      <div class="flex-item">
+        <app-textfield
+          [id]="'message'"
+          [(value)]="bookService.message"
+          label="Message">
+        </app-textfield>
+      </div>
+      <div class="flex-item">
+        <button class="btn waves-effect waves-light" type="submit" name="action" (click)="createEntry()">Send
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+      <div class="flex-item">
+        <button id="logout" class="btn waves-effect waves-light" type="submit" name="action" (click)="logout()">Logout
+          <i class="material-icons right">logout</i>
+        </button>
+      </div>
+
+      <div class="messages">
+        <div class="message" *ngFor="let message of messages">
+          <span>{{message.message}}</span>
+          <span>{{message.user.username}}</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-container>

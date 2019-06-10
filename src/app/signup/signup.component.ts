@@ -30,11 +30,16 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     window['getResponseCaptcha'] = this.validCaptcha.bind(this);
+    window['onloadCallback'] = this.onloadCallback.bind(this);
   }
 
   validCaptcha(): void {
     this.captchaError = false;
   }
+
+  onloadCallback(): void {
+    console.log('captcha loaded');
+  };
 
   passwordIsValid(password: string): boolean {
     const regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+\|§°¦}{\'_=!\-*()@%&]).{8,100}$');

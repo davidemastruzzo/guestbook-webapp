@@ -11,10 +11,14 @@ export class UserService {
   public user: User;
   public registrationRequest: RegistrationRequest;
   public loginRequest: LoginRequest;
+  public loggedIn: boolean;
 
   constructor() {
     this.registrationRequest = {
       username: '',
+      email: '',
+      firstname: '',
+      lastname: '',
       password: '',
       retypePassword: '',
       acceptedTerms: false,
@@ -28,12 +32,18 @@ export class UserService {
 
     this.user = {
       id: null,
-      username: ''
+      username: '',
+      token: ''
     };
+
+    this.loggedIn = false;
   }
 
   clearForm(): void {
     this.registrationRequest.username = '';
+    this.registrationRequest.email = '';
+    this.registrationRequest.firstname = '';
+    this.registrationRequest.lastname = '';
     this.registrationRequest.password = '';
     this.registrationRequest.retypePassword = '';
     this.registrationRequest.acceptedTerms = false;

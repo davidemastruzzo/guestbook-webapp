@@ -15,6 +15,27 @@
     </div>
     <div class="flex-item">
       <app-textfield
+        [id]="'email'"
+        label="Email"
+        [(value)]="userService.registrationRequest.email">
+      </app-textfield>
+    </div>
+    <div class="flex-item small">
+      <app-textfield
+        [id]="'first-name'"
+        label="First Name"
+        [(value)]="userService.registrationRequest.firstname">
+      </app-textfield>
+    </div>
+    <div class="flex-item small">
+      <app-textfield
+        [id]="'First-name'"
+        label="Last Name"
+        [(value)]="userService.registrationRequest.lastname">
+      </app-textfield>
+    </div>
+    <div class="flex-item">
+      <app-textfield
         [id]="'password'"
         [(invalid)]="passwordInvalid"
         [errorMessage]="passwordInvalidMessage"
