@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {UserApiService} from '../services/user-api.service';
-import {BookService} from '../services/book.service';
 
 declare var grecaptcha: any;
 
@@ -17,11 +16,11 @@ export class HomeComponent implements OnInit {
 
   private succesfull = false;
 
-  constructor(public userService: UserService, private userApiService: UserApiService, private bookService: BookService) {
+  constructor(public userService: UserService, private userApiService: UserApiService) {
   }
 
   ngOnInit() {
-    window['getResponseCaptcha'] = this.validCaptcha.bind(this)
+    window['getResponseCaptcha'] = this.validCaptcha.bind(this);
     console.log(this.userService.loggedIn);
   }
 

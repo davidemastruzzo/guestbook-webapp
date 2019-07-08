@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {UserApiService} from '../services/user-api.service';
+import {Router} from '@angular/router';
 
 declare var grecaptcha: any;
 
@@ -25,7 +26,7 @@ export class SignupComponent implements OnInit {
 
   private succesfull = false;
 
-  constructor(public userService: UserService, private userApiService: UserApiService) {
+  constructor(public userService: UserService, private userApiService: UserApiService, private router: Router) {
   }
 
   ngOnInit() {
@@ -119,6 +120,7 @@ export class SignupComponent implements OnInit {
       this.userApiService.register(this.userService.registrationRequest).subscribe(user => {
         if (user.status === 200) {
           this.userService.clearForm();
+          this.router.navigate(['/login']);
         }
       });
     }
